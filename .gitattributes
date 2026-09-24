@@ -1,0 +1,4 @@
+# The firmware's identity is the digest of its source, byte for byte: every
+# checkout must hold the same bytes, whatever the platform's line endings.
+* text=auto eol=lf
+*.bin binary
