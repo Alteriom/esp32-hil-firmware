@@ -99,7 +99,7 @@ jobs:
           version="${{ steps.identity.outputs.version }}"
           {
             echo "The Rig Health Check firmware, $version: one bundle, every board family"
-            echo "(${{ join(fromJSON('[\"esp32\",\"esp32-c3\",\"esp32-c5\",\"esp32-c6\",\"esp32-s3\",\"esp8266\"]'), ', ') }}),"
+            echo "(esp32, esp32-c3, esp32-c5, esp32-c6, esp32-s3, esp8266),"
             echo "with the digests \`firmware.json\` names it by. A rig takes it through the"
             echo "release of \`Alteriom/esp32-rig\` that pins this version (\`canary/firmware.json\`"
             echo "there names this release), installed and pinned by \`alteriom-hil-admin upgrade\`."
