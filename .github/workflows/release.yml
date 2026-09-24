@@ -1,0 +1,116 @@
+# A release of the Rig Health Check firmware: six families built from this
+# tag, packed as the one tarball a rig pins, and attached with the document
+# that names it (firmware.json) and the checksums.
+#
+# The tag is the version: MAJOR.MINOR from firmware/VERSION and PATCH the
+# number of commits that changed firmware/ (build_artifacts.py --version). A
+# tag that says otherwise is refused, so nobody installs 1.0.9 and gets 1.0.7.
+name: Release
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "A commit or branch to build without releasing"
+        required: false
+        default: ""
+permissions:
+  contents: write
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    name: Build and attach the firmware
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+          # The version counts commits; a shallow clone counts to one.
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Identify the firmware
+        id: identity
+        run: |
+          set -euo pipefail
+          echo "version=$(python build_artifacts.py --version)" >> "$GITHUB_OUTPUT"
+          echo "revision=$(python build_artifacts.py --revision)" >> "$GITHUB_OUTPUT"
+      - name: The tag is the version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          set -euo pipefail
+          tagged="${GITHUB_REF_NAME#v}"
+          built="${{ steps.identity.outputs.version }}"
+          if [ "$tagged" != "$built" ]; then
+            echo "::error::the tag says $tagged and the tree builds $built."
+            echo "::error::firmware/VERSION is MAJOR.MINOR and PATCH counts the commits under firmware/: tag what the tree says."
+            exit 1
+          fi
+      # Six PlatformIO cores, each with its own Xtensa or RISC-V toolchain,
+      # against a hosted runner's ~14 GB.
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+                      /usr/local/share/boost /usr/local/lib/node_modules \
+                      /opt/hostedtoolcache/CodeQL || true
+          df -h / | tail -1
+      - name: Cache PlatformIO packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.platformio-cores
+          key: platformio-${{ runner.os }}-${{ hashFiles('firmware/platformio.ini') }}
+      - name: Install the firmware tools
+        run: python -m pip install --quiet platformio esptool
+      - name: Build the firmware
+        run: python build_artifacts.py --out hil-canary
+      - name: Pack the release
+        id: pack
+        run: |
+          set -euo pipefail
+          version="${{ steps.identity.outputs.version }}"
+          mkdir -p dist stage
+          cp -R hil-canary stage/hil-canary
+          (cd stage && tar -czf "../dist/alteriom-hil-canary-$version.tar.gz" hil-canary)
+          python build_artifacts.py --out hil-canary --describe "dist/alteriom-hil-canary-$version.tar.gz" > dist/firmware.json
+          (cd dist && sha256sum alteriom-hil-canary-*.tar.gz firmware.json > SHA256SUMS)
+          cat dist/firmware.json
+          {
+            echo "## Rig Health Check firmware $version"
+            echo
+            echo '```'
+            cat dist/SHA256SUMS
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: firmware-${{ steps.identity.outputs.version }}
+          path: dist/
+      - name: Attach it to the release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          version="${{ steps.identity.outputs.version }}"
+          {
+            echo "The Rig Health Check firmware, $version: one bundle, every board family"
+            echo "(${{ join(fromJSON('[\"esp32\",\"esp32-c3\",\"esp32-c5\",\"esp32-c6\",\"esp32-s3\",\"esp8266\"]'), ', ') }}),"
+            echo "with the digests \`firmware.json\` names it by. A rig takes it through the"
+            echo "release of \`Alteriom/esp32-rig\` that pins this version (\`canary/firmware.json\`"
+            echo "there names this release), installed and pinned by \`alteriom-hil-admin upgrade\`."
+            echo
+            echo "### Checksums"
+            echo
+            echo '```'
+            cat dist/SHA256SUMS
+            echo '```'
+          } > notes.md
+          gh release create "$GITHUB_REF_NAME" \
+            --title "Rig Health Check firmware $version" \
+            --notes-file notes.md \
+            dist/alteriom-hil-canary-*.tar.gz dist/firmware.json dist/SHA256SUMS

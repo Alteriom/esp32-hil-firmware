@@ -1,0 +1,77 @@
+# Every change to the firmware compiles for every family and is checked the
+# way a rig checks a bundle: a manifest naming its commit, its digest and its
+# version, every image at its stated offset. A compile error is found here,
+# on the pull request, not on the release path.
+name: Build
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet pytest
+      - run: python -m pytest -q
+  firmware:
+    name: Build every family
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+                      /usr/local/share/boost /usr/local/lib/node_modules \
+                      /opt/hostedtoolcache/CodeQL || true
+          df -h / | tail -1
+      - name: Cache PlatformIO packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.platformio-cores
+          key: platformio-${{ runner.os }}-${{ hashFiles('firmware/platformio.ini') }}
+      - name: Install the firmware tools
+        run: python -m pip install --quiet platformio esptool
+      - name: Build the firmware
+        env:
+          GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: python build_artifacts.py --out hil-canary
+      - name: Verify the bundle the way a rig does
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib
+          out = pathlib.Path("hil-canary")
+          manifest = json.loads((out / "manifest.json").read_text())
+          assert manifest["schema"] == 2 and manifest["producer"] == "canary"
+          assert len(manifest["farm_sha"]) == 40 and len(manifest["canary_sha"]) == 64
+          for name, entry in manifest["targets"].items():
+              image = out / entry["image"]
+              assert image.is_file(), image
+              assert hashlib.sha256(image.read_bytes()).hexdigest() == entry["sha256"], name
+              merged = image.read_bytes()
+              for filename, offset in entry["segments"].items():
+                  part = (out / name / filename).read_bytes()
+                  at = int(offset, 0)
+                  assert merged[at:at + len(part)] == part, f"{name}/{filename} at {offset}"
+          print("bundle", manifest["version"], "verified for", ", ".join(sorted(manifest["targets"])))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hil-canary
+          path: hil-canary

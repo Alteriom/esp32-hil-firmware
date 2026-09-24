@@ -1,0 +1,7 @@
+.pio/
+hil-canary/
+dist/
+stage/
+__pycache__/
+.pytest_cache/
+*.pyc
