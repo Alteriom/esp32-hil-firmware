@@ -109,11 +109,16 @@ class CanaryStore {
 // ---- the pins an instrument may be wired to ---------------------------------
 //
 // For the wiring check, which drives and reads a board's end of each jumper.
-// The same tables as the farm's (alteriom_hil/pins.py -- a test keeps them in
-// agreement), and the canary refuses every other pin: a wrong pin number in a
-// check must never drive a board's flash bus, its console or a strapping pin.
-// A family with no table has no wireable pins until one is confirmed. -1 ends
-// a list, so an empty one is still a list.
+// The same tables as the rig's (alteriom_hil/pins.py), and the canary refuses
+// every other pin: a wrong pin number in a check must never drive a board's
+// flash bus, its console or a strapping pin. A family with no table has no
+// wireable pins until one is confirmed. -1 ends a list, so an empty one is
+// still a list.
+//
+// A release publishes these tables in firmware.json (`pins`, read from this
+// file by build_artifacts.py), and a rig holds its own table to them: keep
+// the heading line above, one `#if`/`#elif` branch per family, and the
+// `kPinTable`, `kWireablePins[]` and `kInputOnlyPins[]` names as they are.
 #if defined(ESP8266)
 // Which table this build chose, reported by info: a family that fell through
 // to the wrong branch says so instead of refusing every wire.

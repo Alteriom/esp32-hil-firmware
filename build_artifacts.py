@@ -243,9 +243,50 @@ def commands() -> list[str]:
     return sorted(set(re.findall(r'strcmp\(name, "([a-z_]+)"\) == 0', source)))
 
 
+# The preprocessor branch each family's pin table sits under in
+# canary_platform.h, in the order they appear. The ESP32's is matched with
+# its newline so it is not the prefix of the C3's, C6's or S3's.
+PIN_TABLE_BRANCHES = {
+    "esp8266": "defined(ESP8266)",
+    "esp32-c3": "defined(CONFIG_IDF_TARGET_ESP32C3)",
+    "esp32-c6": "defined(CONFIG_IDF_TARGET_ESP32C6)",
+    "esp32-s3": "defined(CONFIG_IDF_TARGET_ESP32S3)",
+    "esp32": "defined(CONFIG_IDF_TARGET_ESP32)\n",
+}
+
+
+def pins() -> dict[str, dict[str, list[int]]]:
+    """The pins an instrument may be wired to, per family, read from the
+    firmware's own tables (canary_platform.h): the ones the wiring check may
+    drive or read, and the input-only ones among them. They travel in
+    firmware.json so a rig can hold its wiring table to the firmware it
+    pins, without the source. A family with no table is absent -- never
+    given another's."""
+    source = (FIRMWARE_DIR / "src" / "canary_platform.h").read_text(encoding="utf-8")
+    source = source.split("the pins an instrument may be wired to", 1)[1]
+    tables: dict[str, dict[str, list[int]]] = {}
+    for family, condition in PIN_TABLE_BRANCHES.items():
+        block = source.split(condition, 1)[1].split("#e", 1)[0]
+        if f'kPinTable = "pins:{family}"' not in block:
+            raise RuntimeError(f"canary_platform.h names no pin table for {family}")
+
+        def numbers(name: str) -> list[int]:
+            found = re.search(rf"{name}\[\] = \{{([^}}]*)\}}", block)
+            if not found:
+                raise RuntimeError(f"canary_platform.h has no {name} for {family}")
+            values = [int(n) for n in found.group(1).split(",")]
+            if values[-1] != -1:
+                raise RuntimeError(f"{name} for {family} does not end in -1")
+            return values[:-1]
+
+        tables[family] = {"wireable": numbers("kWireablePins"), "input_only": numbers("kInputOnlyPins")}
+    return dict(sorted(tables.items()))
+
+
 def describe(out_dir: Path, tarball: Path) -> dict:
     """`firmware.json`: what a rig pins -- the tarball by name and digest, the
-    firmware by version, revision and families, and the commands it answers."""
+    firmware by version, revision and families, the commands it answers and
+    the pins it lets an instrument be wired to."""
     built = json.loads((Path(out_dir) / "manifest.json").read_text(encoding="utf-8"))
     return {
         "schema": 1,
@@ -257,6 +298,7 @@ def describe(out_dir: Path, tarball: Path) -> dict:
         "commit": str(built["farm_sha"]),
         "families": sorted(built["targets"]),
         "commands": commands(),
+        "pins": pins(),
     }
 
 

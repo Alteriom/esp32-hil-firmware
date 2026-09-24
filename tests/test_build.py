@@ -123,7 +123,7 @@ def test_firmware_json_names_what_a_rig_pins(tmp_path):
     assert described == {
         "schema": 1, "name": "alteriom-hil-canary-1.0.7.tar.gz", "sha256": build_artifacts.sha256(tarball),
         "bytes": tarball.stat().st_size, "version": "1.0.7", "revision": "b" * 64, "commit": "a" * 40,
-        "families": ["esp32"], "commands": build_artifacts.commands(),
+        "families": ["esp32"], "commands": build_artifacts.commands(), "pins": build_artifacts.pins(),
     }
     # The commands travel with the pin: what the firmware dispatches on, so a
     # rig can hold its client and simulator to them without the source.
@@ -131,6 +131,28 @@ def test_firmware_json_names_what_a_rig_pins(tmp_path):
     source = (ROOT / "firmware" / "src" / "main.cpp").read_text(encoding="utf-8")
     for command in described["commands"]:
         assert f'strcmp(name, "{command}") == 0' in source
+
+
+def test_the_pin_tables_travel_with_the_release():
+    """A rig checks wiring where it is written and the firmware checks it
+    again where it drives; two tables of one fact drift, so a rig compares
+    them -- against firmware.json, since the source is not on the rig."""
+    tables = build_artifacts.pins()
+    assert set(tables) == {"esp32", "esp32-c3", "esp32-c6", "esp32-s3", "esp8266"}
+    assert "esp32-c5" not in tables, "a family with no table has none, never another's"
+    for family, table in tables.items():
+        assert table["wireable"], family
+        assert set(table["input_only"]) <= set(table["wireable"]), family
+        assert all(isinstance(pin, int) and pin >= 0 for pin in table["wireable"] + table["input_only"]), family
+    assert table_of("esp32")["input_only"] == [34, 35, 36, 39]
+    assert table_of("esp8266") == {"wireable": [4, 5, 12, 13, 14], "input_only": []}
+    source = (ROOT / "firmware" / "src" / "canary_platform.h").read_text(encoding="utf-8")
+    for family in tables:
+        assert f'kPinTable = "pins:{family}"' in source
+
+
+def table_of(family: str) -> dict:
+    return build_artifacts.pins()[family]
 
 
 def test_the_targets_are_the_families_a_rig_supports():

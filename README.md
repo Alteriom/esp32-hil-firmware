@@ -21,8 +21,11 @@ refuses a tag that disagrees). The release carries:
 - `alteriom-hil-canary-<version>.tar.gz` — the bundle: `manifest.json` (schema
   2) and, per family, the merged `flash-image.bin` and its components;
 - `firmware.json` — what a rig pins: the tarball's name, digest and size, the
-  firmware's version, its source digest (`revision`), the commit it belongs to
-  and its families;
+  firmware's version, its source digest (`revision`), the commit it belongs
+  to, its families, the serial commands it answers (`commands`) and, per
+  family, the pins it lets an instrument be wired to (`pins`) -- so a rig
+  holds its client, its simulator and its wiring table to the firmware it
+  pins without this source;
 - `SHA256SUMS`.
 
 Three identities travel in the manifest: `farm_sha`, the commit of this
