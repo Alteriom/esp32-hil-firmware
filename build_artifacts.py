@@ -234,9 +234,18 @@ def build_artifacts(out_dir: Path, names: list[str] | None = None) -> Path:
     return manifest
 
 
+def commands() -> list[str]:
+    """The serial commands the firmware answers, read from its own dispatch
+    chain. They travel in firmware.json so the rig can hold its client and
+    its simulator to exactly what the firmware it pins accepts, without the
+    source."""
+    source = (FIRMWARE_DIR / "src" / "main.cpp").read_text(encoding="utf-8")
+    return sorted(set(re.findall(r'strcmp\(name, "([a-z_]+)"\) == 0', source)))
+
+
 def describe(out_dir: Path, tarball: Path) -> dict:
     """`firmware.json`: what a rig pins -- the tarball by name and digest, the
-    firmware by version, revision and families."""
+    firmware by version, revision and families, and the commands it answers."""
     built = json.loads((Path(out_dir) / "manifest.json").read_text(encoding="utf-8"))
     return {
         "schema": 1,
@@ -247,6 +256,7 @@ def describe(out_dir: Path, tarball: Path) -> dict:
         "revision": str(built["canary_sha"]),
         "commit": str(built["farm_sha"]),
         "families": sorted(built["targets"]),
+        "commands": commands(),
     }
 
 

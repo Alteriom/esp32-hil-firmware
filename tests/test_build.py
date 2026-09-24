@@ -123,8 +123,14 @@ def test_firmware_json_names_what_a_rig_pins(tmp_path):
     assert described == {
         "schema": 1, "name": "alteriom-hil-canary-1.0.7.tar.gz", "sha256": build_artifacts.sha256(tarball),
         "bytes": tarball.stat().st_size, "version": "1.0.7", "revision": "b" * 64, "commit": "a" * 40,
-        "families": ["esp32"],
+        "families": ["esp32"], "commands": build_artifacts.commands(),
     }
+    # The commands travel with the pin: what the firmware dispatches on, so a
+    # rig can hold its client and simulator to them without the source.
+    assert {"info", "echo"} <= set(described["commands"])
+    source = (ROOT / "firmware" / "src" / "main.cpp").read_text(encoding="utf-8")
+    for command in described["commands"]:
+        assert f'strcmp(name, "{command}") == 0' in source
 
 
 def test_the_targets_are_the_families_a_rig_supports():
