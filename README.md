@@ -1,5 +1,13 @@
 # The Rig Health Check firmware
 
+[![Build](https://github.com/Alteriom/esp32-hil-firmware/actions/workflows/build.yml/badge.svg)](https://github.com/Alteriom/esp32-hil-firmware/actions/workflows/build.yml)
+[![Release](https://github.com/Alteriom/esp32-hil-firmware/actions/workflows/release.yml/badge.svg)](https://github.com/Alteriom/esp32-hil-firmware/actions/workflows/release.yml)
+[![Latest release](https://img.shields.io/github/v/release/Alteriom/esp32-hil-firmware?label=release)](https://github.com/Alteriom/esp32-hil-firmware/releases/latest)
+[![Families](https://img.shields.io/badge/families-esp32%20%C2%B7%20c3%20%C2%B7%20c5%20%C2%B7%20c6%20%C2%B7%20s3%20%C2%B7%20esp8266-6b8)](firmware/)
+[![PlatformIO](https://img.shields.io/badge/built%20with-PlatformIO-f5822a?logo=platformio&logoColor=white)](https://platformio.org/)
+[![Used by esp32-rig](https://img.shields.io/badge/pinned%20by-Alteriom%2Fesp32--rig-555)](https://github.com/Alteriom/esp32-rig/blob/main/canary/firmware.json)
+[![License](https://img.shields.io/github/license/Alteriom/esp32-hil-firmware)](LICENSE)
+
 The firmware an [Alteriom HIL rig](https://github.com/Alteriom/esp32-rig)
 flashes to prove its own hardware: that each board boots, its serial path is
 clean, its flash keeps a value, the rig can reset it, its radio sees the rig's
