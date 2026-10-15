@@ -1,0 +1,601 @@
+{
+  "workspace_root": "",
+  "schema_version": 2,
+  "access": "workspace",
+  "entrypoint": "AGENTS.md",
+  "runtimes": [
+    "claude_code",
+    "codex_cli"
+  ],
+  "projects": [
+    "esp32-hil-firmware"
+  ],
+  "nodes": [
+    {
+      "id": "AGENTS.md",
+      "revision": 1,
+      "kind": "route",
+      "layer": "L0",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "CLAUDE.md",
+      "revision": 1,
+      "kind": "route",
+      "layer": "L0",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        "CLAUDE.md"
+      ]
+    },
+    {
+      "id": "doc-.github-copilot-instructions.md",
+      "revision": 1,
+      "kind": "fact",
+      "layer": "L3",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/copilot-instructions.md"
+      ]
+    },
+    {
+      "id": "doc-README.md",
+      "revision": 1,
+      "kind": "fact",
+      "layer": "L3",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "01-fix-CLAUDE.md",
+      "revision": 1,
+      "kind": "route",
+      "layer": "L1",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/01-fix/CLAUDE.md"
+      ]
+    },
+    {
+      "id": "01-fix-CONTEXT.md",
+      "revision": 1,
+      "kind": "route",
+      "layer": "L1",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/01-fix/CONTEXT.md"
+      ]
+    },
+    {
+      "id": "01-fix-stages-01_reproduce-CONTEXT.md",
+      "revision": 1,
+      "kind": "stage",
+      "layer": "L2",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/01-fix/stages/01_reproduce/CONTEXT.md"
+      ]
+    },
+    {
+      "id": "01-fix-stages-02_fix-CONTEXT.md",
+      "revision": 1,
+      "kind": "stage",
+      "layer": "L2",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/01-fix/stages/02_fix/CONTEXT.md"
+      ]
+    },
+    {
+      "id": "01-fix-stages-03_verify-CONTEXT.md",
+      "revision": 1,
+      "kind": "stage",
+      "layer": "L2",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/01-fix/stages/03_verify/CONTEXT.md"
+      ]
+    },
+    {
+      "id": "02-release-CLAUDE.md",
+      "revision": 1,
+      "kind": "route",
+      "layer": "L1",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/02-release/CLAUDE.md"
+      ]
+    },
+    {
+      "id": "02-release-CONTEXT.md",
+      "revision": 1,
+      "kind": "route",
+      "layer": "L1",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/02-release/CONTEXT.md"
+      ]
+    },
+    {
+      "id": "02-release-stages-01_plan-CONTEXT.md",
+      "revision": 1,
+      "kind": "stage",
+      "layer": "L2",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/02-release/stages/01_plan/CONTEXT.md"
+      ]
+    },
+    {
+      "id": "02-release-stages-02_publish-CONTEXT.md",
+      "revision": 1,
+      "kind": "stage",
+      "layer": "L2",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/02-release/stages/02_publish/CONTEXT.md"
+      ]
+    },
+    {
+      "id": "02-release-stages-03_pin-CONTEXT.md",
+      "revision": 1,
+      "kind": "stage",
+      "layer": "L2",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/02-release/stages/03_pin/CONTEXT.md"
+      ]
+    },
+    {
+      "id": "shared-CONTEXT.md",
+      "revision": 1,
+      "kind": "route",
+      "layer": "L1",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/_shared/CONTEXT.md"
+      ]
+    },
+    {
+      "id": "shared-architecture.md",
+      "revision": 1,
+      "kind": "fact",
+      "layer": "L3",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/_shared/architecture.md"
+      ],
+      "evidence": [
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": ".github/workflows/build.yml",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": ".github/workflows/release.yml",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "README.md",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "build_artifacts.py",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "firmware/VERSION",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "firmware/platformio.ini",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "firmware/src/canary_platform.h",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "firmware/src/main.cpp",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "tests/test_build.py",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "tests/test_firmware.py",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        }
+      ]
+    },
+    {
+      "id": "shared-build-and-test.md",
+      "revision": 1,
+      "kind": "fact",
+      "layer": "L3",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/_shared/build-and-test.md"
+      ],
+      "evidence": [
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": ".github/workflows/build.yml",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": ".github/workflows/icm-check.yml",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": ".github/workflows/release.yml",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "README.md",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "build_artifacts.py",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "tests/test_build.py",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "tests/test_firmware.py",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        }
+      ]
+    },
+    {
+      "id": "shared-documents.md",
+      "revision": 1,
+      "kind": "fact",
+      "layer": "L3",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/_shared/documents.md"
+      ],
+      "evidence": [
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": ".github/workflows/build.yml",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": ".github/workflows/release.yml",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "README.md",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "build_artifacts.py",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "firmware/platformio.ini",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        }
+      ]
+    },
+    {
+      "id": "shared-release.md",
+      "revision": 1,
+      "kind": "fact",
+      "layer": "L3",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/_shared/release.md"
+      ],
+      "evidence": [
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": ".github/workflows/release.yml",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "build_artifacts.py",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "firmware/VERSION",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        }
+      ]
+    },
+    {
+      "id": "shared-rules.md",
+      "revision": 1,
+      "kind": "fact",
+      "layer": "L3",
+      "state": "accepted",
+      "project_id": "esp32-hil-firmware",
+      "verified_at": "2026-10-15",
+      "review_after": "2027-01-13",
+      "files": [
+        ".github/icm/_shared/rules.md"
+      ],
+      "evidence": [
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": ".gitattributes",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": ".github/workflows/build.yml",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "README.md",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "build_artifacts.py",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "tests/test_build.py",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        },
+        {
+          "repo": "Alteriom/esp32-hil-firmware",
+          "path": "tests/test_firmware.py",
+          "commit": "3b25ad9f17f1bd1af0bf2d028804ccf8d69c56d1"
+        }
+      ]
+    }
+  ],
+  "forms": [
+    {
+      "form": "umbrella",
+      "root": "",
+      "pipelines": [
+        ".github/icm/01-fix",
+        ".github/icm/02-release"
+      ],
+      "unit": "run"
+    },
+    {
+      "form": "pipeline",
+      "root": ".github/icm/01-fix",
+      "unit": "run"
+    },
+    {
+      "form": "pipeline",
+      "root": ".github/icm/02-release",
+      "unit": "run"
+    }
+  ],
+  "stages": {
+    "fix-reproduce": {
+      "order": 1,
+      "contract": ".github/icm/01-fix/stages/01_reproduce/CONTEXT.md",
+      "inputs": {
+        "working": [],
+        "reference": [
+          ".github/icm/_shared/architecture.md",
+          ".github/icm/_shared/rules.md"
+        ]
+      },
+      "do_not_load": [
+        ".github/icm/02-release/",
+        ".github/icm/_shared/release.md"
+      ],
+      "outputs": [
+        ".github/icm/01-fix/stages/01_reproduce/output/reproduction.md"
+      ],
+      "human_check": "A person runs the command, or reads the evidence, and confirms it fails for the reported reason and that the cause is in this repository.",
+      "required": [
+        "01-fix-stages-01_reproduce-CONTEXT.md"
+      ],
+      "optional": [
+        "shared-build-and-test.md"
+      ]
+    },
+    "fix-fix": {
+      "order": 2,
+      "contract": ".github/icm/01-fix/stages/02_fix/CONTEXT.md",
+      "inputs": {
+        "working": [
+          ".github/icm/01-fix/stages/01_reproduce/output/reproduction.md"
+        ],
+        "reference": [
+          ".github/icm/_shared/rules.md",
+          ".github/icm/_shared/build-and-test.md"
+        ]
+      },
+      "do_not_load": [
+        ".github/icm/02-release/",
+        ".github/icm/_shared/release.md"
+      ],
+      "outputs": [
+        ".github/icm/01-fix/stages/02_fix/output/change.md"
+      ],
+      "human_check": "A person reads the diff beside the reproduction: it removes the cause, adds no dependency, and changes the protocol only if that was agreed.",
+      "required": [
+        "01-fix-stages-02_fix-CONTEXT.md"
+      ]
+    },
+    "fix-verify": {
+      "order": 3,
+      "contract": ".github/icm/01-fix/stages/03_verify/CONTEXT.md",
+      "inputs": {
+        "working": [
+          ".github/icm/01-fix/stages/02_fix/output/change.md"
+        ],
+        "reference": [
+          ".github/icm/_shared/build-and-test.md"
+        ]
+      },
+      "do_not_load": [
+        ".github/icm/02-release/"
+      ],
+      "outputs": [
+        ".github/icm/01-fix/stages/03_verify/output/pull-request.md"
+      ],
+      "human_check": "A person reads `pull-request.md` and the `build.yml` result for every family, and says whether to open it; the reviewer merges.",
+      "required": [
+        "01-fix-stages-03_verify-CONTEXT.md"
+      ]
+    },
+    "release-plan": {
+      "order": 1,
+      "contract": ".github/icm/02-release/stages/01_plan/CONTEXT.md",
+      "inputs": {
+        "working": [],
+        "reference": [
+          ".github/icm/_shared/release.md"
+        ]
+      },
+      "do_not_load": [
+        ".github/icm/01-fix/"
+      ],
+      "outputs": [
+        ".github/icm/02-release/stages/01_plan/output/plan.md"
+      ],
+      "human_check": "A person approves the version and the commit; nothing is tagged until they do.",
+      "required": [
+        "02-release-stages-01_plan-CONTEXT.md"
+      ]
+    },
+    "release-publish": {
+      "order": 2,
+      "contract": ".github/icm/02-release/stages/02_publish/CONTEXT.md",
+      "inputs": {
+        "working": [
+          ".github/icm/02-release/stages/01_plan/output/plan.md"
+        ],
+        "reference": [
+          ".github/icm/_shared/release.md"
+        ]
+      },
+      "do_not_load": [
+        ".github/icm/01-fix/"
+      ],
+      "outputs": [
+        ".github/icm/02-release/stages/02_publish/output/publish.md"
+      ],
+      "human_check": "A person pushes the tag, then reads `publish.md` and confirms the release page shows the three assets.",
+      "required": [
+        "02-release-stages-02_publish-CONTEXT.md"
+      ]
+    },
+    "release-pin": {
+      "order": 3,
+      "contract": ".github/icm/02-release/stages/03_pin/CONTEXT.md",
+      "inputs": {
+        "working": [
+          ".github/icm/02-release/stages/02_publish/output/publish.md"
+        ],
+        "reference": [
+          ".github/icm/_shared/release.md"
+        ]
+      },
+      "do_not_load": [
+        ".github/icm/01-fix/"
+      ],
+      "outputs": [
+        ".github/icm/02-release/stages/03_pin/output/pin.md"
+      ],
+      "human_check": "A person opens (or asks for) the rig's pin pull request from `pin.md`; rigs run the new firmware only after it merges and the rig releases.",
+      "required": [
+        "02-release-stages-03_pin-CONTEXT.md"
+      ],
+      "optional": [
+        "shared-rules.md"
+      ]
+    }
+  }
+}
